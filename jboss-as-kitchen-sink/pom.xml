@@ -62,13 +62,33 @@
     <!-- First declare the APIs we depend on and need for compilation.
        All of them are provided by JBoss AS 7 -->
 
+    <!-- JSR-303 (Bean Validation) Implementation -->
+    <!-- Provides portable constraints such as @Email -->
+    <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.1.0.Final</version>
+      <scope>provided</scope>
+      <exclusions>
+      	<exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Annotation processor that raising compilation errors whenever 
+        constraint annotations are incorrectly used. -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator-annotation-processor</artifactId>
+      <version>4.1.0.Final</version>
+      <scope>provided</scope>
+	</dependency>
+
     <!-- Import the necessary Spring Framework dependencies -->
 
-	<dependency>
-	  <groupId>javax.validation</groupId>
-	  <artifactId>validation-api</artifactId>
-	  <version>1.0.0.GA</version>
-	</dependency>
 	<dependency>
 	  <groupId>org.springframework</groupId>
 	  <artifactId>spring-asm</artifactId>
