@@ -20,7 +20,7 @@
 		<div id="reg">
 			<h2>Member Registration</h2>
 			<p>Enforces annotation-based constraints defined on the model class</p>
-			<form:form commandName="member">
+			<form:form commandName="newMember">
 				<table>
 					<tbody>
 						<tr>
