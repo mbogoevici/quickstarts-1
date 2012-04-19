@@ -156,6 +156,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.6.4</version>
+    </dependency>
+
     <!-- Needed for running tests (you may also use TestNG) -->
     <dependency>
       <groupId>junit</groupId>
