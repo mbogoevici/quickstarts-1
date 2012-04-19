@@ -28,12 +28,15 @@ public class MemberController
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String registerNewMember(@Valid @ModelAttribute("newMember") Member newMember, Model model, BindingResult result)
+    public String registerNewMember(@Valid @ModelAttribute("newMember") Member newMember, BindingResult result, Model model)
     {
         if (!result.hasErrors()) {
             memberDao.register(newMember);
+            return "redirect:/";
         }
-
-        return "redirect:/";
+        else {
+            model.addAttribute("members", memberDao.findAllOrderedByName());
+            return "index";
+        }
     }
 }
