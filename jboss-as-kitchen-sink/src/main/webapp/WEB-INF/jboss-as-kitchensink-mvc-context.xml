@@ -20,6 +20,8 @@
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="ignoreAcceptHeader" value="true"/>
+        <property name="favorParameter" value="true"/>
+        <property name="favorPathExtension" value="false"/>        
         <property name="order" value="0"/>
     </bean>
 
