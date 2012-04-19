@@ -87,17 +87,17 @@
 							<tr>
 								<th><form:label path="name">Name:</form:label></th>
 								<td><form:input path="name"/></td>
-								<td/>
+								<td><form:errors path="name"/></td>
 							</tr>
 							<tr>
 								<th><form:label path="email">Email:</form:label></th>
 								<td><form:input path="email"/></td>
-								<td/>
+								<td><form:errors path="email"/></td>
 							</tr>
 							<tr>
 								<th><form:label path="phoneNumber">Phone #:</form:label>
 								<td><form:input path="phoneNumber"/></td>
-								<td/>
+								<td><form:errors path="phoneNumber"/></td>
 							</tr>
 						</tbody>
 					</table>
