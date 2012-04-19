@@ -17,16 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberDaoImpl implements MemberDao
 {
     @Autowired
-    private EntityManager entityManager;
+    private EntityManager em;
 
     public Member findById(Long id)
     {
-        return entityManager.find(Member.class, id);
+        return em.find(Member.class, id);
     }
 
     public Member findByEmail(String email)
     {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Member> criteria = builder.createQuery(Member.class);
         Root<Member> member = criteria.from(Member.class);
 
@@ -36,13 +36,13 @@ public class MemberDaoImpl implements MemberDao
          */
 
         criteria.select(member).where(builder.equal(member.get("email"), email));
-        return entityManager.createQuery(criteria).getSingleResult();
+        return em.createQuery(criteria).getSingleResult();
     }
 
-    public List<Member> getMembersOrderedByName()
+    public List<Member> findAllOrderedByName()
     {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = builder.createQuery(Member.class);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
         Root<Member> member = criteria.from(Member.class);
 
         /*
@@ -50,13 +50,13 @@ public class MemberDaoImpl implements MemberDao
          * feature in JPA 2.0 criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
          */
 
-        criteria.select(member).orderBy(builder.asc(member.get("name")));
-        return entityManager.createQuery(criteria).getResultList();
+        criteria.select(member).orderBy(cb.asc(member.get("name")));
+        return em.createQuery(criteria).getResultList();
     }
 
     public void register(Member member)
     {
-        entityManager.persist(member);
+        em.persist(member);
         return;
     }
 }
