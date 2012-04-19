@@ -28,17 +28,17 @@
 					<table>
 						<tbody>
 							<tr>
-								<th><form:label path="name">Name:</form:label></th>
+								<td><form:label path="name">Name:</form:label></td>
 								<td><form:input path="name"/></td>
 								<td><form:errors path="name"/></td>
 							</tr>
 							<tr>
-								<th><form:label path="email">Email:</form:label></th>
+								<td><form:label path="email">Email:</form:label></td>
 								<td><form:input path="email"/></td>
 								<td><form:errors path="email"/></td>
 							</tr>
 							<tr>
-								<th><form:label path="phoneNumber">Phone #:</form:label>
+								<td><form:label path="phoneNumber">Phone #:</form:label>
 								<td><form:input path="phoneNumber"/></td>
 								<td><form:errors path="phoneNumber"/></td>
 							</tr>
@@ -51,11 +51,11 @@
 				<table>
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Phone #</th>
-							<th>REST URL</th>
+							<td>Id</td>
+							<td>Name</td>
+							<td>Email</td>
+							<td>Phone #</td>
+							<td>REST URL</td>
 						</tr>
 					</thead>
 					<tbody>
