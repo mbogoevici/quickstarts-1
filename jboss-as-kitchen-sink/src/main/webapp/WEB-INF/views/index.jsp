@@ -11,74 +11,17 @@
 
 	<body>
 		<div id="container">
+			<div class="dualbrand">
+				<img src="<c:url value="/static/resources/gfx/dualbrand_logo.png"/>"/>
+			</div>
 			<div id="content">
-				<div id="sidebar">
-					<h3>Find out more</h3>
-					<p>Learn more about JBoss AS 7.</p>
-					<ul>
-						<li><a
-							href="https://docs.jboss.org/author/display/AS7/Getting+Started+Developing+Applications+Guide">JBoss
-                  			AS 7 Getting Started Developing Applications Guide</a></li>
-                  		<li><a href="jboss.org/jbossas">JBoss AS 7 project
-                  			site</a></li>
-					</ul>
-					<p>Learn about the Java EE 6 platform and the component
-						model it provides.</p>
-					<ul>
-						<li><a
-	    	              href="http://download.oracle.com/javaee/6/tutorial/doc">Java
-    	                 EE 6 tutorial</a></li>
-		               <li><a
-		                  href="http://docs.jboss.org/cdi/spec/1.0/html">JSR-299:
-		                     CDI specification</a></li>
-		               <li><a
-		                  href="https://sites.google.com/site/cdipojo/get-started">CDI
-		                     Source</a></li>
-					</ul>
-					<p>Dive into Weld, the CDI reference implementation, and
-						discover portable extensions Seam 3 offers.</p>
-		            <ul>
-		               <li><a
-		                  href="http://docs.jboss.org/weld/reference/latest/en-US/html">Weld
-		                     reference guide</a></li>
-		               <li><a href="http://seamframework.org/Weld">Weld
-		                     project</a></li>
-		               <li><a href="http://seamframework.org/Seam3">Seam
-		                     3 project</a></li>
-		               <li><a
-		                  href="http://seamframework.org/Community/Forums">User
-		                     forums</a></li>
-		               <li><a
-		                  href="http://seamframework.org/Community/MailingLists">Mailing
-		                     lists</a></li>
-		               <li><a
-		                  href="https://issues.jboss.org/browse/WELDRAD">Archetype
-		                     issue tracker</a></li>
-		            </ul>
-		            <p>Explore the Spring Framework, the application
-		            development framework for enterprise Java.</p>
-		            <ul>
-		            	<li><a href="http://www.springframework.org">Spring Framework
-		            		site</a></li>
-		            </ul>
-		            <p>
-		               If you have an add-on, please <a
-		                  href="http://seamframework.org/Community/Forums">let
-		                  us know</a> and consider <a
-		                  href="http://seamframework.org/Seam3/GetInvolved">contributing</a>
-		               it back to the community!
-		            </p>
-				</div>
-				<div id="insertedContent">
-					<h1>Welcome to JBoss!</h1>
-				</div>
-
+				<h1>Welcome to JBoss!</h1>
+				
 				<div>
 					<p>You have successfully deployed a Java EE 6 web application.</p>
-					<h3>Your application can run on:</h3>
+					<p>Your application can run on:</p>
 					<img src="<c:url value="/static/resources/gfx/dualbrand_as7eap.png"/>">
 				</div>
-
 				<form:form commandName="newMember" id="reg">
 					<h2>Member Registration</h2>
 					<p>Enforces annotation-based constraints defined on the model class</p>
@@ -104,33 +47,53 @@
 					<br/>
 					<input type="submit" value="Register"/>
 				</form:form>
-		</div>
+				<h2>Members</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone #</th>
+							<th>REST URL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${members}" var="member">
+							<tr>
+								<td>${member.id}</td>
+								<td>${member.name}</td>
+								<td>${member.email}</td>
+								<td>${member.phoneNumber}</td>
+								<td><a href="<c:url value="/rest/members/${member.id}"/>">/rest/members/${member.id}</a></td>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div id="footer">
+					REST URL for all members: <a href="<c:url value="/rest/members"/>">/rest/members</a>
+				</div>
 
-		<h2>Members</h2>
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone #</th>
-					<th>REST URL</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${members}" var="member">
-					<tr>
-						<td>${member.id}</td>
-						<td>${member.name}</td>
-						<td>${member.email}</td>
-						<td>${member.phoneNumber}</td>
-						<td><a href="<c:url value="/members/${member.id}"/>">/members/${member.id}</a></td>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div id="footer">
-			REST URL for all members: <a href="<c:url value="/members"/>">/members</a>
+				<div id="aside">
+					<p>Learn more about JBoss Enterprise Application Platform 6.</p>
+			         <ul>
+			            <li><a
+			               href="http://red.ht/jbeap-6-docs">Documentation</a></li>
+			            <li><a href="http://red.ht/jbeap-6">Product Information</a></li>
+			         </ul>
+			         <p>Learn more about JBoss AS 7.</p>
+			         <ul>
+			            <li><a
+			               href="https://docs.jboss.org/author/display/AS7/Getting+Started+Developing+Applications+Guide">Getting Started Developing Applications Guide</a></li>
+			            <li><a href="http://jboss.org/jbossas">Community Project Information</a></li>
+			         </ul>            
+			      </div>
+			      <div id="footer">
+			         <p>
+			            This project was generated from a Maven archetype from
+			            JBoss.<br />
+			         </p>
+				</div>
+			</div>
 		</div>
-	</div>
 	</body>
 </html>
