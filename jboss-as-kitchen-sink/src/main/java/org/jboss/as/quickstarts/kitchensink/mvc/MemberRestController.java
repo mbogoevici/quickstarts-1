@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/rest/members")
@@ -18,13 +19,13 @@ public class MemberRestController
     private MemberDao memberDao;
 
     @RequestMapping(method=RequestMethod.GET, produces="application/json")
-    public List<Member> listAllMembers()
+    public @ResponseBody List<Member> listAllMembers()
     {
         return memberDao.findAllOrderedByName();
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET, produces="application/json")
-    public Member lookupMemberById(@PathVariable("id") Long id)
+    public @ResponseBody Member lookupMemberById(@PathVariable("id") Long id)
     {
         return memberDao.findById(id);
     }
