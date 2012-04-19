@@ -1,10 +1,13 @@
 package org.jboss.as.quickstarts.kitchensink.mvc;
 
- import org.jboss.as.quickstarts.kitchensink.model.Member;
+ import javax.validation.Valid;
+
+import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.repo.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,9 +28,12 @@ public class MemberController
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String registerNewMember(@ModelAttribute("newMember") Member newMember, Model model)
+    public String registerNewMember(@Valid @ModelAttribute("newMember") Member newMember, Model model, BindingResult result)
     {
-        memberDao.register(newMember);
+        if (!result.hasErrors()) {
+            memberDao.register(newMember);
+        }
+
         return "redirect:/";
     }
 }
