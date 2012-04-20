@@ -30,17 +30,17 @@
 							<tr>
 								<td><form:label path="name">Name:</form:label></td>
 								<td><form:input path="name"/></td>
-								<td><form:errors path="name"/></td>
+								<td><form:errors class="invalid" path="name"/></td>
 							</tr>
 							<tr>
 								<td><form:label path="email">Email:</form:label></td>
 								<td><form:input path="email"/></td>
-								<td><form:errors path="email"/></td>
+								<td><form:errors class="invalid" path="email"/></td>
 							</tr>
 							<tr>
 								<td><form:label path="phoneNumber">Phone #:</form:label>
 								<td><form:input path="phoneNumber"/></td>
-								<td><form:errors path="phoneNumber"/></td>
+								<td><form:errors class="invalid" path="phoneNumber"/></td>
 							</tr>
 						</tbody>
 					</table>
