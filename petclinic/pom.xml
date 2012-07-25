@@ -164,8 +164,14 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.1.5.Final</version><!--$NO-MVN-MAN-VER$-->
+			<version>4.1.5.Final</version><!--$NO-MVN-MAN-VER$ -->
 			<scope>${hibernate.dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -196,9 +202,21 @@
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
+
+		<dependency>
+			<artifactId>dom4j</artifactId>
+			<groupId>dom4j</groupId>
+			<version>1.6.1</version>
+			<scope>test</scope>
+		</dependency>
+		
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -265,6 +283,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
@@ -324,21 +348,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<version>6</version>
-					<defaultlibbundledir>lib</defaultlibbundledir>
-					<modules></modules>
-					<archive>
-						<manifestentries>
-							<dependencies>org.dom4j</dependencies>
-						</manifestentries>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 		<resources>

@@ -26,5 +26,5 @@
     </jdbc:initialize-database>
 
     <!-- JNDI DataSource for JEE environments -->
-    <jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource" expected-type="javax.sql.DataSource"/>
+    <jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource" expected-type="javax.sql.DataSource" />
 </beans>
