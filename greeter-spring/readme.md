@@ -1,6 +1,6 @@
 greeter-spring: Greeter Example using Spring 3.1
 
-Author: Marius Bogoevici Level: Beginner Technologies:This example demonstrates the use of JPA 2.0 and JSP in JBoss Enterprise Application Platform 6 or JBoss AS 7.
+Author: Marius Bogoevici Level: Beginner Technologies: This example demonstrates the use of JPA 2.0 and JSP in JBoss Enterprise Application Platform 6 or JBoss AS 7.
 
 When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the src/main/resources/init-db.sql file.
 
