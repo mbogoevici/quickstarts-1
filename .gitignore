@@ -11,3 +11,4 @@ bin/
 /*/src/main/java/META-INF
 .gitignore.swp
 .idea
+*~
