@@ -190,31 +190,11 @@
 		</dependency>
 
 
-		<!-- Hibernate JPA Provider -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
-			<scope>${hibernate.dependency.scope}</scope>
-			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>dom4j</artifactId>
-					<groupId>dom4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
 		<dependency>
 			<artifactId>dom4j</artifactId>
 			<groupId>dom4j</groupId>
 			<version>1.6.1</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- Servlet -->
