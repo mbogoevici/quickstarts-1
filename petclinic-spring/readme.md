@@ -1,52 +1,118 @@
 petclinic-spring: PetClinic Example using Spring 3.1
 
-Author: Marius Bogoevici Level: Advanced Technologies: This example demonstrates the use of JPA 2.0, Junit, JMX, and JSP in JBoss Enterprise Application Platform 6 or JBoss AS 7.
-
-When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the src/main/resources/init-db.sql file.
+Level: Advanced Technologies: This example demonstrates the use of JPA 2.0, Junit, JMX, and JSP in JBoss Enterprise Application Platform 6 or JBoss AS 7.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.
-Configure Maven
+==========================================================================
+=== Spring PetClinic Sample Application
+==========================================================================
 
-If you have not yet done so, you must Configure Maven before testing the quickstarts.
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+@author Ken Krebs
+@author Juergen Hoeller
+@author Rob Harrop
+@author Costin Leau
+@author Sam Brannen
+@author Scott Andrews
 
-    Open a command line and navigate to the root of the JBoss server directory.
+==========================================================================
+=== Data Access Strategies
+==========================================================================
 
-    The following shows the command line to start the server with the web profile:
+PetClinic features alternative DAO implementations and application
+configurations for JDBC, Hibernate, and JPA, with HSQLDB and MySQL as
+target databases. The default PetClinic configuration is JDBC on HSQLDB.
+See "src/main/resources/jdbc.properties" as well as web.xml and
+applicationContext-*.xml in the "src/main/webapp/WEB-INF" folder for
+details. A simple comment change in web.xml switches between the data
+access strategies.
 
-    For Linux:   JBOSS_HOME/bin/standalone.sh
-    For Windows: JBOSS_HOME\bin\standalone.bat
+The JDBC and Hibernate versions of PetClinic also demonstrate JMX support
+via the use of <context:mbean-export/> for exporting MBeans.
+SimpleJdbcClinic exposes the SimpleJdbcClinicMBean management interface
+via JMX through the use of the @ManagedResource and @ManagedOperation
+annotations; whereas, the HibernateStatistics service is exposed via JMX
+through auto-detection of the service MBean. You can start up the JDK's
+JConsole to manage the exported bean.
 
-Build and Deploy the Quickstart
+All data access strategies can work with JTA for transaction management by
+activating the JtaTransactionManager and a JndiObjectFactoryBean that
+refers to a transactional container DataSource. The default for JDBC is
+DataSourceTransactionManager; for Hibernate, HibernateTransactionManager;
+for JPA, JpaTransactionManager. Those local strategies allow for working
+with any locally defined DataSource.
 
-NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See Build and Deploy the Quickstarts for complete instructions and additional options.
+Note that the sample configurations for JDBC, Hibernate, and JPA configure
+a BasicDataSource from the Apache Commons DBCP project for connection
+pooling.
 
-    Make sure you have started the JBoss Server as described above.
-    Open a command line and navigate to the root directory of this quickstart.
+==========================================================================
+=== Build and Deployment
+==========================================================================
 
-    Type this command to build and deploy the archive:
+The Spring PetClinic sample application is built using Maven.
+When the project is first built, Maven will automatically download all required
+dependencies (if these haven't been downloaded before). Thus the initial build
+may take a few minutes depending on the speed of your Internet connection,
+but subsequent builds will be much faster.
 
-    mvn clean package jboss-as:deploy
+Available build commands:
 
-    This will deploy target/petclinic-spring.war to the running instance of the server. 
-    
-    If you don't have maven configured you can manually copy target/petclinic-spring.war to JBOSS_HOME/standalone/deployments.
+- mvn clean         --> cleans the project
+- mvn clean test    --> cleans the project and runs all tests
+- mvn clean package --> cleans the project and builds the WAR
 
-Access the application
+After building the project with "mvn clean package", you will find the
+resulting WAR file in the "target/" directory. By default, an
+embedded HSQLDB instance in configured. No other steps are necessary to
+get the data source up and running: you can simply deploy the built WAR
+file directly to your Servlet container.
 
-The application will be running at the following URL: http://localhost:8080/petclinic-spring.
-Undeploy the Archive
+For MySQL, you'll need to use the corresponding schema and SQL scripts in
+the "db/mysql" subdirectory. Follow the steps outlined in
+"db/mysql/petclinic_db_setup_mysql.txt" for explicit details.
 
-    Make sure you have started the JBoss Server as described above.
-    Open a command line and navigate to the root directory of this quickstart.
+In you intend to use a local DataSource, the JDBC settings can be adapted
+in "src/main/resources/jdbc.properties". To use a JTA DataSource, you need
+to set up corresponding DataSources in your Java EE container.
 
-    When you are finished testing, type this command to undeploy the archive:
+Notes on enabling Log4J:
+ - Log4J is disabled by default due to issues with JBoss.
+ - Uncomment the Log4J listener in "WEB-INF/web.xml" to enable logging.
+ 
+Notes on service static resources:
+ - Most web containers provide a 'default' servlet for serving static 
+ resources; Petclinic relies on it for its images.
+ - On containers without such a mapping (ex: GlassFish), uncomment the 
+ 'default' declaration in "WEB-INF/web.xml".
 
-    mvn jboss-as:undeploy
-    
-    Or you can manually remove the application by removing petclinic-spring.war from JBOSS_HOME/standalone/deployments
+==========================================================================
+=== JPA on Tomcat
+==========================================================================
+
+This section provides tips on using the Java Persistence API (JPA) on
+Apache Tomcat 4.x or higher with a persistence provider that requires
+class instrumentation (such as TopLink Essentials).
+
+To use JPA class instrumentation, Tomcat has to be instructed to use a
+custom class loader which supports instrumentation. See the JPA section of
+the Spring reference manual for complete details.
+
+The basic steps are:
+ - Copy "org.springframework.instrument.tomcat-3.0.0.RELEASE.jar" from the
+   Spring distribution to "TOMCAT_HOME/server/lib".
+ - If you're running on Tomcat 5.x, modify "TOMCAT_HOME/conf/server.xml"
+   and add a new "<Context>" element for 'petclinic' (see below). You can 
+   alternatively deploy the WAR including "META-INF/context.xml" from this 
+   sample application's "src/main/webapp" directory, in which case you
+   will need to uncomment the Loader element in that file to enable the
+   use of the TomcatInstrumentableClassLoader.
+
+<Context path="/petclinic" docBase="/petclinic/location" ...>
+  <!-- please note that useSystemClassLoaderAsParent is available since Tomcat 5.5.20; remove it if previous versions are being used -->
+  <Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader" useSystemClassLoaderAsParent="false"/>
+  ...
+</Context>
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 
